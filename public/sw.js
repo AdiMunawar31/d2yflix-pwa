@@ -1,50 +1,21 @@
-const CACHE_NAME = 'd2yflix-cache-v1';
+importScripts('./cache-helper.js');
+
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/offline.html',
-  '/app.webmanifest',
-  // '/favicon.ico',
-  // '/assets/logo.png',
-  '/src/main.jsx'
+  './',
+  '../index.html',
+  './offline.html',
+  './app.webmanifest',
+  '../src/main.jsx'
 ];
 
-const self = this;
-
-// Install SW
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log("Opened cache");
-
-      return cache.addAll(ASSETS_TO_CACHE);
-    })
-  );
+self.addEventListener('install', (event) => {
+  event.waitUntil(CacheHelper.cachingAppShell([...ASSETS_TO_CACHE]));
 });
 
-// Listen for requests
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then(() => {
-      return fetch(event.request).catch(() => caches.match("offline.html"));
-    })
-  );
+self.addEventListener('activate', (event) => {
+  event.waitUntil(CacheHelper.deleteOldCache());
 });
 
-// Activate the SW
-self.addEventListener("activate", (event) => {
-  const cacheWhitelist = [];
-  cacheWhitelist.push(CACHE_NAME);
-
-  event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
-        cacheNames.map((cacheName) => {
-          if (!cacheWhitelist.includes(cacheName)) {
-            return caches.delete(cacheName);
-          }
-        })
-      )
-    )
-  );
+self.addEventListener('fetch', (event) => {
+  event.respondWith(CacheHelper.revalidateCache(event.request));
 });
