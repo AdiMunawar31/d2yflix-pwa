@@ -66,7 +66,7 @@ const TrendingNow = () => {
                         </div>
                       </a>
                       <h3
-                        className="text-2xl font-bold text-white w-60 truncate"
+                        className="text-2xl font-bold text-white w-44 sm:w-60 truncate"
                         data-unsp-sanitized="clean"
                       >
                         {movie.title}

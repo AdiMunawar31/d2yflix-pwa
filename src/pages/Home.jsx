@@ -8,12 +8,9 @@ const Home = () => {
   return (
     <div>
       <Banner />
-      <hr />
       <TrendingNow />
       <SectionInformation />
-      <hr />
       <FaQ />
-      <hr />
     </div>
   );
 };
