@@ -28,7 +28,7 @@ const TrendingNow = () => {
       <h1 className="text-3xl font-bold">Trending Now</h1>
 
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
-        {movies.map((movie) => (
+        {movies.slice(0, 8).map((movie) => (
           <div key={movie.id}>
             <div className="w-2 bg-gray-800" />
             <div
@@ -75,20 +75,20 @@ const TrendingNow = () => {
                         Beyond fear, destiny awaits.
                       </div>
                     </div>
-                    <div className="flex flex-row justify-between datos">
-                      <div className="flex flex-col datos_col">
-                        <div className="popularity">{movie.popularity}</div>
-                        <div className="text-sm text-gray-400">Popularity:</div>
+                    <div className="flex flex-row justify-between ">
+                      <div className="flex flex-col px-2">
+                        <div className="text-sm">{movie.popularity}</div>
+                        <div className="text-xs text-gray-400">Popularity:</div>
                       </div>
-                      <div className="flex flex-col datos_col">
-                        <div className="release">{movie.release_date}</div>
-                        <div className="text-sm text-gray-400">
+                      <div className="flex flex-col px-2">
+                        <div className="text-sm">{movie.release_date}</div>
+                        <div className="text-xs text-gray-400">
                           Release date:
                         </div>
                       </div>
-                      <div className="flex flex-col datos_col">
-                        <div className="release">{movie.vote_count}</div>
-                        <div className="text-sm text-gray-400">Vote:</div>
+                      <div className="hidden sm:flex flex-col px-2">
+                        <div className="text-sm">{movie.vote_count}</div>
+                        <div className="text-xs text-gray-400">Vote:</div>
                       </div>
                     </div>
                     <div className="flex flex-col overview">
