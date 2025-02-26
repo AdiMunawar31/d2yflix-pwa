@@ -1,27 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { apiClient } from "../api/apiClient";
+import React from "react";
+import useMovies from "../hooks/useMovies";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342";
 
 const TrendingNow = () => {
-  const [movies, setMovies] = useState([]);
+  const { movies, loading } = useMovies();
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await apiClient.get("/discover/movie", {
-          params: { sort_by: "popularity.desc" },
-        });
-        console.log("response data : ", response);
-
-        setMovies(response.data.results);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      }
-    };
-
-    fetchMovies();
-  }, []);
+  if (loading) {
+    return <p className="text-white text-center">Loading...</p>;
+  }
 
   return (
     <div className="text-white bg-black p-16">
