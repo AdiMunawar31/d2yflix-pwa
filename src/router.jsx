@@ -7,8 +7,6 @@ const Router = () => (
   <>
     <Routes>
       <Route path="/" element={<Home />} />
-      {/* <Route path="/movie-search-pwa/search" element={<Search />} />
-      <Route path="/movie-search-pwa/favorite" element={<Favorite />} /> */}
       <Route path="/*" element={<NotFound />} />
     </Routes>
   </>
