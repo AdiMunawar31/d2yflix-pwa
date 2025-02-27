@@ -1,9 +1,27 @@
 export function registerServiceWorker() {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then((registration) => console.log('Service Worker registered:', registration))
-        .catch((error) => console.error('Service Worker registration failed:', error));
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then((registration) => {
+          console.log("✅ Service Worker registered:", registration);
+
+          // Update service worker jika ada perubahan
+          registration.addEventListener("updatefound", () => {
+            console.log("🔄 New service worker update found!");
+            const newWorker = registration.installing;
+            newWorker?.addEventListener("statechange", () => {
+              if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+                console.log("⚡ New update available! Refresh for latest version.");
+              }
+            });
+          });
+        })
+        .catch((error) => console.error("❌ Service Worker registration failed:", error));
     });
+
+    // Cek status online/offline
+    window.addEventListener("online", () => console.log("🌐 Online"));
+    window.addEventListener("offline", () => console.warn("⚠️ Offline: Using cached data"));
   }
 }

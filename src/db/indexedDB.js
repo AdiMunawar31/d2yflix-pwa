@@ -24,6 +24,11 @@ const indexedDBHelper = {
     const db = await dbPromise;
     return db.getAll(STORE_NAME);
   },
+
+  async clearMovies() {
+    const db = await dbPromise;
+    return db.clear(STORE_NAME);
+  },
 };
 
 export default indexedDBHelper;

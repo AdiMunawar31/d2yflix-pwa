@@ -4,10 +4,14 @@ import useMovies from "../hooks/useMovies";
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342";
 
 const TrendingNow = () => {
-  const { movies, loading } = useMovies();
+  const { movies, loading, error } = useMovies();
 
   if (loading) {
     return <p className="text-white text-center">Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-white text-center">Error...</p>;
   }
 
   return (
@@ -94,6 +98,7 @@ const TrendingNow = () => {
                 className="absolute inset-0 transform w-full -translate-y-4"
                 src={`${IMAGE_BASE_URL}${movie.poster_path}`}
                 style={{ filter: "grayscale(0)" }}
+                onError={(e) => (e.target.src = "/fallback-image.png")}
               />
               <div className="poster__footer flex flex-row relative pb-10 space-x-4 z-10">
                 <a

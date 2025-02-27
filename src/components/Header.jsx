@@ -1,6 +1,17 @@
 import React from "react";
+import useNotification from "../hooks/useNotification";
 
 const Header = () => {
+  const { showNotification } = useNotification();
+
+  const handleNotification = () => {
+    console.log("🔔 Mencoba menampilkan notifikasi...");
+    showNotification("🚀 Notifikasi Berhasil!", {
+      body: "Ini adalah notifikasi dari aplikasi React tanpa backend.",
+      icon: "/icons/icon-192x192.png",
+    });
+  };
+
   return (
     <div className="">
       <div className="absolute top-0 left-0 mt-5 ml-8">
@@ -18,7 +29,10 @@ const Header = () => {
           </g>
         </svg>
       </div>
-      <button className="absolute mr-8 bg-red-600 hover:bg-red-700 text-white p-3 top-0 right-0 mt-3">
+      <button
+        onClick={handleNotification}
+        className="absolute mr-8 bg-red-600 hover:bg-red-700 text-white p-3 top-0 right-0 mt-3"
+      >
         Sign In
       </button>
     </div>
