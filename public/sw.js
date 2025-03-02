@@ -7,7 +7,6 @@ const ASSETS_TO_CACHE = [
   './icons',
   './app.webmanifest',
   '../src/main.jsx',
-  'https://image.tmdb.org/t/p/w342'
 ];
 
 self.addEventListener('install', (event) => {
@@ -51,19 +50,6 @@ self.addEventListener('fetch', (event) => {
   // Default behavior untuk request lainnya
   event.respondWith(CacheHelper.revalidateCache(event.request));
 });
-
-// self.addEventListener('push', (event) => {
-//   const data = event.data ? event.data.json() : {};
-//   const title = data.title || "New Notification from D2YFLIX";
-//   const options = {
-//     body: data.body || "You have a new message!",
-//     icon: "./icons/icon-192x192.png",
-//     badge: "./icons/icon-192x192.png",
-//     data: { url: data.url || "/" }
-//   };
-
-//   event.waitUntil(self.registration.showNotification(title, options));
-// });
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();

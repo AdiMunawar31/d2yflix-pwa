@@ -1,18 +1,19 @@
+import { Toaster } from "react-hot-toast";
 import { BrowserRouter as Routers } from "react-router-dom";
+import useNotification from "./hooks/useNotification";
 import Layout from "./pages/Layout";
 import Router from "./router";
-import useNotification from "./hooks/useNotification";
-import { useEffect } from "react";
 
 function App() {
-  const { showNotification } = useNotification();
-
   return (
-    <Routers>
-      <Layout>
-        <Router />
-      </Layout>
-    </Routers>
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      <Routers>
+        <Layout>
+          <Router />
+        </Layout>
+      </Routers>
+    </>
   );
 }
 
