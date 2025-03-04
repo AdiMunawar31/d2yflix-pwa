@@ -51,9 +51,30 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(CacheHelper.revalidateCache(event.request));
 });
 
+self.addEventListener("push", (event) => {
+  console.log("📩 Push event diterima:", event);
+  
+  let data;
+  try {
+    data = event.data ? event.data.json() : {};
+  } catch (error) {
+    console.error("❌ Error parsing push data:", error);
+    data = { title: "D2YFLIX Notification", body: "Anda punya pesan baru!" };
+  }
+
+  const title = data.title || "D2YFLIX Notification";
+  const options = {
+    body: data.body || "Anda punya pesan baru!",
+    icon: "/icons/icon-192x192.png",
+    badge: "/icons/icon-192x192.png",
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
   event.waitUntil(
-    clients.openWindow("https://adi31.vercel.app") 
+    clients.openWindow("/") // Arahkan ke halaman utama saat diklik
   );
 });

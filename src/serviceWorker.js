@@ -16,8 +16,16 @@ export function registerServiceWorker() {
               }
             });
           });
+
+          return registration.pushManager.getSubscription();
         })
-        .catch((error) => console.error("❌ Service Worker registration failed:", error));
+        .then((subscription) => {
+          if (subscription) {
+            console.log("User sudah subscribe:", subscription);
+          } else {
+            console.log("User belum subscribe ke push notifications.");
+          }
+        }).catch((error) => console.error("❌ Service Worker registration failed:", error));
     });
 
     // Cek status online/offline

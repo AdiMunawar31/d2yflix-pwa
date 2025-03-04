@@ -93,7 +93,7 @@ const MovieCard = ({ movie }) => {
             className="absolute inset-0 transform w-full -translate-y-4"
             src={`${IMAGE_BASE_URL}${movie.poster_path}`}
             style={{ filter: "grayscale(0)" }}
-            onError={(e) => (e.target.src = "/fallback-image.png")}
+            onError={(e) => (e.target.src = "/public/fallback-image.png")}
           />
         </div>
       </Link>

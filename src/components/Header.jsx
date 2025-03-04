@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useNotification from "../hooks/useNotification";
+import { Bell, BellOff } from "lucide-react";
 
 const Header = () => {
-  const { showNotification } = useNotification();
+  const { showNotification, requestNotificationPermission } = useNotification();
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [permission, setPermission] = useState(Notification.permission);
+
+  useEffect(() => {
+    if (permission === "granted") {
+      setIsSubscribed(true);
+    }
+  }, [permission]);
 
   const handleNotification = () => {
     console.log("🔔 Mencoba menampilkan notifikasi...");
@@ -34,6 +43,12 @@ const Header = () => {
 
         {/* Tombol */}
         <div className="flex space-x-3 sm:space-x-6 opacity-100">
+          <button
+            onClick={requestNotificationPermission}
+            className="rounded-md mr-6 bg-gray-600 hover:bg-gray-700 text-white px-4 py-1.5"
+          >
+            {isSubscribed ? <Bell /> : <BellOff />}
+          </button>
           <button
             onClick={handleNotification}
             className="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-md transition"

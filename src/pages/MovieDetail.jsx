@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import indexedDBHelper from "../db/indexedDB";
 import { apiClient } from "../api/apiClient";
-import { Star, Globe, Calendar, Clock, UsersRoundIcon } from "lucide-react";
+import {
+  Star,
+  Globe,
+  Calendar,
+  Clock,
+  UsersRoundIcon,
+  StarIcon,
+  Share,
+} from "lucide-react";
 import { useWatchlist } from "../hooks/useWatchlist";
 import WatchlistButton from "../components/WatchlistButton";
 
@@ -127,6 +135,27 @@ const MovieDetail = () => {
             >
               {movie.homepage}
             </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto flex flex-col gap-3 my-14">
+        <div className="flex flex-col gap-4 bg-gray-900 rounded-lg p-4">
+          {/* Profile and Rating */}
+          <div className="flex justify justify-between">
+            <div className="flex gap-2">
+              <div className="w-7 h-7 text-center rounded-full bg-red-500">
+                J
+              </div>
+              <span>Jess Hopkins</span>
+            </div>
+          </div>
+          <div>
+            Gorgeous design! Even more responsive than the previous version. A
+            pleasure to use!
+          </div>
+          <div className="flex justify-between">
+            <span>Feb 13, 2021</span>
           </div>
         </div>
       </div>
